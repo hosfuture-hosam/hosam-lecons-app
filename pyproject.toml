@@ -1,0 +1,15 @@
+[project]
+name = "hosam-lecons"
+version = "1.0.0"
+description = "تطبيق إدارة الطلاب والحضور والمدفوعات"
+requires-python = ">=3.9"
+dependencies = [
+    "flet"
+]
+
+[tool.flet]
+# اسم التطبيق اللي هيظهر تحت الأيقونة على الموبايل
+product = "دروس حسام"
+# معرف الحزمة الفريد للتطبيق (غيّره لو حابب اسم مختلف، بس سيبه إنجليزي وبدون مسافات)
+org = "com.hosamlecons"
+company = "HosamLecons"
