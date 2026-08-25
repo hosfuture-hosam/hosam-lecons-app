@@ -1,0 +1,42 @@
+name: Build Android APK
+
+# يشتغل تلقائيًا لما تعمل push على main، أو يدويًا من تبويب Actions
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # الـ Java مطلوبة لبناء تطبيق أندرويد (Gradle)
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Install Flet CLI
+        run: pip install --upgrade flet
+
+      # أول تشغيل هيحمّل Flutter SDK و Android SDK تلقائيًا (بياخد وقت أطول أول مرة)
+      - name: Build Android APK
+        run: flet build apk -v
+
+      - name: Upload APK as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hosam-lecons-apk
+          path: build/apk/*.apk
+          if-no-files-found: error
