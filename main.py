@@ -11,6 +11,9 @@ import os
 def get_db_path():
     data_dir = os.environ.get("FLET_APP_STORAGE_DATA")
     if data_dir:
+        # المجلد ده لازم يكون موجود فعليًا قبل ما نفتح ملف جواه، وإلا sqlite
+        # هيرفض الاتصال بصمت ويوقع التطبيق قبل ما تظهر أي واجهة
+        os.makedirs(data_dir, exist_ok=True)
         return os.path.join(data_dir, "students.db")
     return "students.db"
 
@@ -72,12 +75,20 @@ class Database:
         conn.commit()
         conn.close()
 
-Database.init_db()
-
 # ============================================================
 # 2. التطبيق الرئيسي
 # ============================================================
 def main(page: ft.Page):
+    # بننشئ جداول قاعدة البيانات هنا (جوه main) مش في أعلى الملف، عشان لو
+    # حصل أي خطأ، فليت يقدر يعرضه كرسالة على الشاشة بدل ما يقفل التطبيق
+    # بصمت وتفضل شاشة بيضا فاضية
+    try:
+        Database.init_db()
+    except Exception as err:
+        page.add(ft.Text(f"خطأ في تجهيز قاعدة البيانات: {err}", color="red", size=16))
+        page.update()
+        return
+
     page.title = "Hosam_Lecons"
     page.rtl = True
     page.bgcolor = "#0A0A0F"
