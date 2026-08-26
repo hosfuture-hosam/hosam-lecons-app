@@ -32,7 +32,7 @@ jobs:
 
       # أول تشغيل هيحمّل Flutter SDK و Android SDK تلقائيًا (بياخد وقت أطول أول مرة)
       - name: Build Android APK
-        run: flet build apk -v --yes
+        run: flet build apk -v 
 
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v4
