@@ -28,7 +28,7 @@ jobs:
           java-version: "17"
 
       - name: Install Flet CLI
-        run: pip install --upgrade flet
+        run: pip install flet==0.28.3
 
       # أول تشغيل هيحمّل Flutter SDK و Android SDK تلقائيًا (بياخد وقت أطول أول مرة)
       - name: Build Android APK
