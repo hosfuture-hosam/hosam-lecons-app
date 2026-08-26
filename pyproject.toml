@@ -9,7 +9,7 @@ dependencies = [
 
 [tool.flet]
 # اسم التطبيق اللي هيظهر تحت الأيقونة على الموبايل
-product = "دروس حسام"
+product = "Hosam-T"
 # معرف الحزمة الفريد للتطبيق (غيّره لو حابب اسم مختلف، بس سيبه إنجليزي وبدون مسافات)
 org = "com.hosamlecons"
 company = "HosamLecons"
